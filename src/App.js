@@ -11,6 +11,12 @@ function App() {
 
   const [name, setName] = useState("");
   const addUser = async () => {
+    const index = users.indexOf(name);
+    if (index !== -1) {
+      alert("Username is already taken!")
+      return
+    }
+
     let api = `https://codeforces.com/api/user.info?handles=${name}`
     const res = await fetch(api);
     if (res.ok) { setUsers([...users, name]); }
@@ -28,7 +34,7 @@ function App() {
         addUser();
       }
       }>
-        <input type="text" placeholder='Enter username' style={style} value={name} onChange={(e) => setName(e.target.value)}></input>
+        <input type="text" placeholder='Enter username' style={style} value={name} onChange={(e) => setName(e.target.value.toLowerCase())}></input>
         <button style={style} type="submit">Add User</button>
       </form>
       <div id="main">

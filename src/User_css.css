@@ -5,13 +5,19 @@
     margin: 5px;
 }
 
+.content:hover {
+    box-shadow: 1px 1px 10px 3px #888888;
+}
+
 .content {
     margin: 20px;
     padding: 20px;
-    border: 2px solid black;
+    border: 1px solid black;
     border-radius: 10px;
     background-color: rgba(128, 128, 128, 0.342);
     box-shadow: 2px 4px 10px #888888;
+    height: 280px;
+    width: 200px;
 }
 
 #main {
