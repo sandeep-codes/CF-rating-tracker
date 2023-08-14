@@ -21,7 +21,7 @@ export default function User(props) {
             <img src={Data.avatar} style={{ height: "100px" }} alt="profile_pic" />
             <p style={{ color: color, opacity: "0.7", fontSize: "25px" }}>{Data.rank}</p>
             <p style={{ overflow: "hidden" }}>Name: {Data.firstName}  {Data.lastName}</p>
-            <p>Username: {Data.handle}</p>
+            <p>Username: {Data.username}</p>
             <p>Rating: {Data.rating} (Max: {Data.maxRating})</p>
         </div>
     );
