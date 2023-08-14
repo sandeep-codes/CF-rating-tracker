@@ -2,33 +2,17 @@ import React, { useEffect, useState } from 'react';
 import './User_css.css';
 
 export default function User(props) {
-    let [Data, setData] = useState({});
-    console.log(props.username);
-    let api = `https://codeforces.com/api/user.info?handles=${props.username}`;
-
-    const fetchApi = async (url) => {
-        try {
-            const res = await fetch(url);
-            const d = await res.json();
-            const data = d.result[0];
-            setData(data);
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    useEffect(() => {
-        fetchApi(api);
-    }, [api]);
-
+    let Data = props.Data;
+    console.log(Data);
     let color = "red";
     if (Data.rating < 1200) color = "black";
     else if (Data.rating < 1400) color = "#0fb40c";
     else if (Data.rating < 1600) color = "cyan";
     else if (Data.rating < 1800) color = "blue";
+    else if (Data.rating < 2000) color = "#9204d9";
 
     const handleClick = () => {
-        window.open(`https://codeforces.com/profile/${props.username}`, '_blank');
+        window.open(`https://codeforces.com/profile/${Data.username}`, '_blank');
     };
 
     return (

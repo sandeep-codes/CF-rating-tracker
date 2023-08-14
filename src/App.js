@@ -8,29 +8,39 @@ function App() {
   const [name, setName] = useState("");
 
   const addUser = async () => {
-    const index = users.indexOf(name);
-    if (index !== -1) {
+    console.log("hello");
+    const foundObject = users.find(obj => obj["username"].toLowerCase() === name.toLowerCase());
+    if (foundObject) {
       alert("Username is already taken!");
       return;
     }
 
+
     let api = `https://codeforces.com/api/user.info?handles=${name}`;
     const res = await fetch(api);
-
     if (res.ok) {
-      const newUserList = [name, ...users];
-      setUsers([name, ...users]);
-      // console.log(newUserList);
+      const d = await res.json();
+      const data = d.result[0];
+      const userDetail = {
+        username: data.handle,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        rating: data.rating,
+        maxRating: data.maxRating,
+        avatar: data.avatar,
+        rank: data.rank
+      }
+      setUsers([userDetail, ...users]);
+      setName("");
     } else {
       alert('Enter a valid username!');
     }
-    setName("");
   }
 
-  const renderData = users.map((user, index) => (
-    <User key={index} username={user} />
+  const renderData = users.map((Data, index) => (
+    <User key={index} Data={Data} />
   ));
-  const style = { margin: "0", fontSize: "20px", borderRadius: "2px", cursor: "pointer" };
+  const style = { margin: "0", fontSize: "20px" };
   return (
     <>
       <form onSubmit={(e) => {
@@ -42,7 +52,7 @@ function App() {
           placeholder='Enter username'
           value={name}
           style={style}
-          onChange={(e) => setName(e.target.value.toLowerCase())}
+          onChange={(e) => setName(e.target.value)}
         />
         <button type="submit" style={style}>Add User</button>
       </form>
